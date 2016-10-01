@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="stat159-project-1">Stat159 Project 1</h1>
+<p>Author: Siyu Chen<br />
+Date: Sep 30, 2016</p>
+<div class="figure">
+<img src="/Users/seeuchan/Documents/Stat%20159/stat159-fall2016-project1/images/stat159-logo.png" alt="stat159-logo" />
+<p class="caption">stat159-logo</p>
+</div>
+<h2 id="abstraction">Abstraction</h2>
+<p>This paper introduces several useful tools I learned from this class so far and how to use them to do this project, including Makefile, Git, GitHub, pandoc and Markdown. Not only I will explain the role they play, but also I will provide some basic examples to illustrate how I use them.</p>
+<h2 id="introduction">Introduction</h2>
+<p>The need for reproducibility is increasing dramatically as data analyses become more complex, involving larger datasets and more sophisticated computations. Reproducible research, which is published with data and code, allows others to verify the findings and build upon them. So by taking this class, I hope to learn more about how to conduct reproducible research.</p>
+<p>There are several tools which play important roles in reproducible research, including but not limited to Makefile, Git, GitHub, pandoc and Markdown. Some of them are just learned from this class. So in this project, I will practice using these tools and discuss their roles in this project in this paper. The scope of this project is to write a paper about how to use these tools to do this project.</p>
+<p>Also for those who are not familiar with these tools or even not familiar with coding, I hope this paper will be helpful for them to get a better understanding of reproducible research.</p>
+<h2 id="discussion">Discussion</h2>
+<h3 id="unix-command">Unix Command</h3>
+<p>Unix commands are very convenient. I use Unix command to build the structure of this project.</p>
+<p>First, I will create the main directory of this project named as <code>stat159-fall2016-project1</code>:</p>
+<pre><code>mkdir stat159-fall2016-project1</code></pre>
+<p>Then, I go into this directory and create other things:</p>
+<pre><code>cd stat159-fall2016-project1  
+mkdir paper
+mkdir images
+touch .gitignore
+touch README.md
+touch Makefile</code></pre>
+<p>Then, I go into <code>paper</code> directory to keep building:</p>
+<pre><code>cd paper
+mkdir sections
+cd sections
+touch 00-abstract.md
+touch 01-introduction.md
+touch 02-discussion.md
+touch 03-conclusions.md</code></pre>
+<p>After that, I go back to main directory and go into <code>images</code> directory to download images:</p>
+<pre><code>cd ../..
+cd images
+curl -o images/git-logo.png https://raw.githubusercontent.com/ucb-stat159/stat159-fall-2016/master/projects/proj01/images/git-logo.png
+curl -o images/github-logo.png https://raw.githubusercontent.com/ucb-stat159/stat159-fall-2016/master/projects/proj01/images/github-logo.png
+curl -o images/markdown-logo.png https://raw.githubusercontent.com/ucb-stat159/stat159-fall-2016/master/projects/proj01/images/markdown-logo.png
+curl -o images/pandoc-logo.png https://raw.githubusercontent.com/ucb-stat159/stat159-fall-2016/master/projects/proj01/images/pandoc-logo.png
+curl -o images/stat159-logo.png https://raw.githubusercontent.com/ucb-stat159/stat159-fall-2016/master/projects/proj01/images/stat159-logo.png</code></pre>
+<p>After I have done each part of my paper, I can combine them to one file easily:</p>
+<pre><code>cat sections/00-abstract.md sections/01-introduction.md sections/02-discussion.md sections/03-conclusions.md &gt; paper.md</code></pre>
+<h3 id="makefile">Makefile</h3>
+<hr />
+<h4 id="overview">Overview</h4>
+<p>Make, also know as GNU Make, is a tool which allows to automate things. For now, we just use it for automating tasks but we can also use it for compiling.</p>
+<p>It's very useful when you want to reproduce other's projects. By running Makefile, it can automatically set up, such as creating directories, downloading necessary source files or running codes. It saves you a lot of time and makes your life easier by finishing tedious tasks for you.</p>
+<p>For this project, I use <code>Makefile</code> to automate some tasks, like building the structure, downloading images, creating paper html and removing everything.</p>
+<h4 id="illustration">Illustration</h4>
+<p>First, let's look at targets of my <code>Makefile</code>:</p>
+<pre><code>.Phony:download_images create_gitignore clean
+
+all: download_images create_gitignore  create_paper convert_md2htmll</code></pre>
+<p>By default, Makefile targets are <strong>file targets</strong>, which are used to build files from other files. But here some of my targets are simply names of a recipe. They are <strong>Phony</strong> targets. Also, <code>all</code> is simply a &quot;label&quot; to indicate a series of dependencies.</p>
+<pre><code>download_images: 
+    curl -o images/git-logo.png https://raw.githubusercontent.com/ucb-stat159/stat159-fall-2016/master/projects/proj01/images/git-logo.png
+    curl -o images/github-logo.png https://raw.githubusercontent.com/ucb-stat159/stat159-fall-2016/master/projects/proj01/images/github-logo.png
+    curl -o images/markdown-logo.png https://raw.githubusercontent.com/ucb-stat159/stat159-fall-2016/master/projects/proj01/images/markdown-logo.png
+    curl -o images/pandoc-logo.png https://raw.githubusercontent.com/ucb-stat159/stat159-fall-2016/master/projects/proj01/images/pandoc-logo.png
+    curl -o images/stat159-logo.png https://raw.githubusercontent.com/ucb-stat159/stat159-fall-2016/master/projects/proj01/images/stat159-logo.png</code></pre>
+<p><code>download_images</code> target is to download images.</p>
+<pre><code>create_gitignore:
+    touch .gitignore</code></pre>
+<p><code>create_gitignore</code> target is to create gitignore file.</p>
+<pre><code>create_paper: paper/sections/00-abstract.md paper/sections/01-introduction.md paper/sections/02-discussion.md paper/sections/03-conclusions.md
+cat paper/sections/00-abstract.md paper/sections/01-introduction.md paper/sections/02-discussion.md paper/sections/03-conclusions.md &gt; paper/paper.md</code></pre>
+<p><code>create_paper</code>: concatenate all parts to form a whole <code>paper.md</code> file.</p>
+<pre><code>convert_md2html: paper/paper.md
+pandoc -s paper/paper.md -o paper/paper.html </code></pre>
+<p><code>convert_md2html</code>: convert markdown format to html format by Pandoc</p>
+<pre><code>clean:
+    rm -rf images
+    rm -rf paper
+    rm .gitignore</code></pre>
+<p><code>clean</code> target is to remove everything.</p>
+<h4 id="tutorial-about-basics-of-gnu-make">Tutorial about basics of GNU Make</h4>
+<p>If you are interested in more about Make, this is a good <a href="https://github.com/unix-tools/tutorial-makefiles">link</a> to explore by yourself. This tutorial is written by our lovely Stat 159 instructor: Gaston.</p>
+<h3 id="git">Git</h3>
+<hr />
+<div class="figure">
+<img src="/Users/seeuchan/Documents/Stat%20159/stat159-fall2016-project1/images/git-logo.png" alt="Git logo" />
+<p class="caption">Git logo</p>
+</div>
+<h4 id="overview-1">Overview</h4>
+<p>Git is a version control system which is use for software development and other version control tasks. As with most other distributed version control systems, every Git directory on every computer is a full-fledged repository with complete history and full version-tracking capacities.</p>
+<p>Its advantages include but not limited to:</p>
+<ul>
+<li>Collaboration: With a Version Control System, everybody one the team is able to work absolutely freely - on any file at any time. The VCS will later allow you to merge all the changes into a common version.</li>
+<li>Restoring Previous Versions: If the changes you have made lately prove to be useless, you can simply undo them by VCS.</li>
+<li>Knowing What Happened: Every time you save a new version of your project, your VCS requires you to provide a short description of what was changed. This helps you understand how your project changed between versions.</li>
+</ul>
+<h4 id="how-i-use-this-git-in-this-project">How I use this Git in this project</h4>
+<p>First, I need to initialize a local repo that Git can store versions of our files:</p>
+<pre><code>git init</code></pre>
+<p><code>.git</code> will appear if you call <code>ls -a</code>. Git stores information about the project in this special sub-directory.</p>
+<p>Now, I show how to use Git to keep track of <code>Makefile</code> as an example, which also can apply to other files.</p>
+<p>Suppose I just create a <code>Makefile</code>, I can check the status of my project:</p>
+<pre><code>git status</code></pre>
+<p>Git will show <code>Makefile</code> is untracked which means that there's a file in the directory that Git isn't keeping track of.</p>
+<p>We can tell Git to track a file:</p>
+<pre><code>git add Makefile</code></pre>
+<p>If I call <code>git status</code> again, Git will show it hasn't recorded changes as a commit yet. I can do:</p>
+<pre><code>git commit -m &quot;commit Makefile&quot;</code></pre>
+<p>Git stores a copy permanently inside the special <code>.git</code> directory. This permanent copy is called a commit. I can use <code>-m</code> flag to record a short, descriptive, and specific comment that will help me remember later on what I did and why.</p>
+<h4 id="more-about-git">More about Git</h4>
+<p>What I introduce is very simple and basic. If you want to know about Git, like exploring history, ignoring things or collaborating, you can go to this <a href="http://swcarpentry.github.io/git-novice/">link</a>.</p>
+<h3 id="github">GitHub</h3>
+<hr />
+<div class="figure">
+<img src="/Users/seeuchan/Documents/Stat%20159/stat159-fall2016-project1/images/github-logo.png" alt="github-logo" />
+<p class="caption">github-logo</p>
+</div>
+<h4 id="overview-2">Overview</h4>
+<p>GitHub is a Git repository hosting service, but it adds many of its own features. While Git is a command line tool, GitHub provides a Web-based graphical interface.</p>
+<h4 id="how-i-use-github">How I use GitHub</h4>
+<p>First, I need to create a remote repo through GitHub website. This repository is going to be where I collaborate with others and course staff looks at my work.</p>
+<p>Then I need to build a connection between local repo and remote repo like the following:</p>
+<pre><code>git remote add origin &lt;REMOTE_URL&gt;</code></pre>
+<p><code>git remote add</code> command will match a remote URL (in this case, my remote repo URL) with a name as &quot;origin&quot;.</p>
+<p>Then, I can just update my master branch of remote repo in GitHub using my newest local repo like the following.</p>
+<p>(Notice: In order to update local repo, we can use the same method I introduced in Git part.)</p>
+<pre><code>git push origin master</code></pre>
+<p>Now, my repo in GitHub gets updated. If my teammates want to add on something, they can just update their local repo according to remote repo:</p>
+<pre><code>git pull origin master</code></pre>
+<h4 id="more-about-github">More about GitHub</h4>
+<p>You can find more or explore yourself on <a href="https://github.com">GitHub</a> website.</p>
+<h3 id="pandoc">Pandoc</h3>
+<hr />
+<div class="figure">
+<img src="/Users/seeuchan/Documents/Stat%20159/stat159-fall2016-project1/images/pandoc-logo.png" alt="pandoc-logo" />
+<p class="caption">pandoc-logo</p>
+</div>
+<h4 id="overview-3">Overview</h4>
+<p>Pandoc is your swiss-army knife if you need to convert files from one markup format into another. Pandoc can convert documents in markdown, HTML, LaTeX and so on to HTML formats, Word processor formats, PDF via LaTeX and others.</p>
+<p>For my project, I mainly use Pandoc to convert markdown files to HTML and PDF files. It's very easy to use if you want to get other formats.</p>
+<h4 id="how-i-use-pandoc">How I use Pandoc</h4>
+<p>Assume now I finish my paper and have a <code>paper.md</code> file. I can use Pandoc like the following to get paper file in HTML formats:</p>
+<pre><code>pandoc -s paper.md -o paper.html </code></pre>
+<p><strong>Notice</strong>: I know how to use Pandoc, but the HTML and PDF files converted from Pandoc have some minor format issues. Export option provided by MacDown (Text editor) is better I think.</p>
+<h4 id="more-about-pandoc">More about Pandoc</h4>
+<p>You can always learn more from <a href="http://pandoc.org/getting-started.html#step-6-converting-a-file">Pandoc</a> official website.</p>
+<h3 id="markdown">Markdown</h3>
+<div class="figure">
+<img src="/Users/seeuchan/Documents/Stat%20159/stat159-fall2016-project1/images/markdown-logo.png" alt="Makefile logo" />
+<p class="caption">Makefile logo</p>
+</div>
+<h4 id="overview-4">Overview</h4>
+<p>By wikipedia, Markdown is a lightweight markup language with plain text formatting syntax designed so that it can be converted to HTML and many other formats using a tool by the same name.</p>
+<p>My own understanding is that Markdown is a language which is very easy to use and can be converted to other formats easily. For this paper, I write my paper in Markdown.</p>
+<h4 id="more-about-markdown">More about Markdown</h4>
+<p>You can learn more about Markdown through this <a href="http://www.markdowntutorial.com">Interactive online markdown tutorial</a>. <a href="https://stackedit.io/editor">Here</a> is an online text editor that you can try to write in Markdown.</p>
+<h3 id="some-thoughts">Some thoughts</h3>
+<hr />
+<p>If you did not use these tools before, don't worry; I was as same as you a while ago. Resources I put at the end of each part are very useful and friendly to new users. I also learned by myself through those resources.</p>
+<p>For this project, I don't thing there are anything particularly challenging. I just write down how I did this project. It's very straightforward. The most time consuming part is to write this paper. It took me like 5 to 6 hours.</p>
+<p>At last, I want to thank people who wrote those useful online resources. I learned and get a lot from them.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>This project is very interesting for me because it involves a lot of interesting tools. It's good to get some practice with using them. I really get a feeling that these tools are super helpful. I will keep using them and learn how to use them in future.</p>
+</body>
+</html>
