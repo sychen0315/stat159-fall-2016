@@ -2,7 +2,7 @@
 Author: Siyu Chen  
 Date:   Sep 30, 2016  
 
-![stat159-logo](/Users/seeuchan/Documents/Stat 159/stat159-fall2016-project1/images/stat159-logo.png)
+![stat159-logo](https://raw.githubusercontent.com/sychen0315/stat159-fall-2016/master/images/stat159-logo.png)
 
 
 ## Abstraction

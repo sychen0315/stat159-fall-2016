@@ -2,7 +2,7 @@
 Author: Siyu Chen  
 Date:   Sep 30, 2016  
 
-![stat159-logo](/Users/seeuchan/Documents/Stat 159/stat159-fall2016-project1/images/stat159-logo.png)
+![stat159-logo](https://raw.githubusercontent.com/sychen0315/stat159-fall-2016/master/images/stat159-logo.png)
 
 
 ## Abstraction
@@ -117,7 +117,7 @@ If you are interested in more about Make, this is a good [link](https://github.c
 
 ---
 
-![Git logo](/Users/seeuchan/Documents/Stat 159/stat159-fall2016-project1/images/git-logo.png)
+![Git logo](https://raw.githubusercontent.com/sychen0315/stat159-fall-2016/master/images/git-logo.png)
 
 #### Overview
 Git is a version control system which is use for software development and other version control tasks. As with most other distributed version control systems, every Git directory on every computer is a full-fledged repository with complete history and full version-tracking capacities.
@@ -163,7 +163,7 @@ What I introduce is very simple and basic. If you want to know about Git, like e
 ---
 
 
-![github-logo](/Users/seeuchan/Documents/Stat 159/stat159-fall2016-project1/images/github-logo.png)
+![github-logo](https://raw.githubusercontent.com/sychen0315/stat159-fall-2016/master/images/github-logo.png)
 
 #### Overview
 GitHub is a Git repository hosting service, but it adds many of its own features. While Git is a command line tool, GitHub provides a Web-based graphical interface. 
@@ -195,7 +195,7 @@ You can find more or explore yourself on [GitHub](https://github.com) website.
 
 ---
 
-![pandoc-logo](/Users/seeuchan/Documents/Stat 159/stat159-fall2016-project1/images/pandoc-logo.png)
+![pandoc-logo](https://raw.githubusercontent.com/sychen0315/stat159-fall-2016/master/images/pandoc-logo.png)
 
 #### Overview
 Pandoc is your swiss-army knife if you need to convert files from one markup format into another. Pandoc can convert documents in markdown, HTML, LaTeX and so on to HTML formats, Word processor formats, PDF via LaTeX and others.
@@ -215,7 +215,7 @@ You can always learn more from [Pandoc](http://pandoc.org/getting-started.html#s
 
 ### Markdown
 
-![Makefile logo](/Users/seeuchan/Documents/Stat 159/stat159-fall2016-project1/images/markdown-logo.png)
+![Makefile logo](https://raw.githubusercontent.com/sychen0315/stat159-fall-2016/master/images/markdown-logo.png)
 
 
 #### Overview
