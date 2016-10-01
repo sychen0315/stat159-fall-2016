@@ -215,6 +215,8 @@ You can always learn more from [Pandoc](http://pandoc.org/getting-started.html#s
 
 ### Markdown
 
+---
+
 ![Makefile logo](https://raw.githubusercontent.com/sychen0315/stat159-fall-2016/master/images/markdown-logo.png)
 
 
