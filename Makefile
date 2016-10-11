@@ -1,6 +1,6 @@
-.Phony:download_images create_gitignore clean
+.Phony:all download_images create_gitignore clean
 
-all: download_images create_gitignore  create_paper convert_md2html
+all:  paper.md paper.html
 
 
 
@@ -15,14 +15,12 @@ download_images:
 create_gitignore:
 	touch .gitignore
 
-create_paper: paper/sections/00-abstract.md paper/sections/01-introduction.md paper/sections/02-discussion.md paper/sections/03-conclusions.md
+paper.md: paper/sections/00-abstract.md paper/sections/01-introduction.md paper/sections/02-discussion.md paper/sections/03-conclusions.md
 	cat paper/sections/00-abstract.md paper/sections/01-introduction.md paper/sections/02-discussion.md paper/sections/03-conclusions.md > paper/paper.md
 
 
-convert_md2html: paper/paper.md
+paper.html: paper/paper.md
 	pandoc -s paper/paper.md -o paper/paper.html 
 
 clean:
-	rm -rf images
-	rm -rf paper
-	rm .gitignore
+	rm -rf paper/paper.md  paper/paper.html

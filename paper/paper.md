@@ -75,9 +75,9 @@ For this project, I use `Makefile` to automate some tasks, like building the str
 #### Illustration
 First, let's look at targets of my `Makefile`:
 
-	.Phony:download_images create_gitignore clean
+	.Phony:all download_images create_gitignore clean
 
-	all: download_images create_gitignore  create_paper convert_md2htmll
+	all: paper.md paper.html
 	
 By default, Makefile targets are **file targets**, which are used to build files from other files. But here some of my targets are simply names of a recipe. They are **Phony** targets. Also, `all` is simply a "label" to indicate a series of dependencies.
 
@@ -94,20 +94,19 @@ By default, Makefile targets are **file targets**, which are used to build files
 		touch .gitignore
 `create_gitignore` target is to create gitignore file.
 
-	create_paper: paper/sections/00-abstract.md paper/sections/01-introduction.md paper/sections/02-discussion.md paper/sections/03-conclusions.md
+	paper.md: paper/sections/00-abstract.md paper/sections/01-introduction.md paper/sections/02-discussion.md paper/sections/03-conclusions.md
 	cat paper/sections/00-abstract.md paper/sections/01-introduction.md paper/sections/02-discussion.md paper/sections/03-conclusions.md > paper/paper.md
 
-`create_paper`: concatenate all parts to form a whole `paper.md` file.
+`paper.md`: concatenate all parts to form a whole `paper.md` file.
 
-	convert_md2html: paper/paper.md
+	paper.html: paper/paper.md
 	pandoc -s paper/paper.md -o paper/paper.html 
-`convert_md2html`: convert markdown format to html format by Pandoc
+`paper.html`: convert markdown format to html format by Pandoc
+
 
 	clean:
-		rm -rf images
-		rm -rf paper
-		rm .gitignore
-`clean` target is to remove everything.
+		rm -rf paper/paper.md  paper/paper.html
+`clean` target is to remove `paper.md` and `paper.html`.
  
 #### Tutorial about basics of GNU Make
 If you are interested in more about Make, this is a good [link](https://github.com/unix-tools/tutorial-makefiles) to explore by yourself. This tutorial is written by our lovely Stat 159 instructor: Gaston. 
